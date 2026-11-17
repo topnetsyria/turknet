@@ -1,0 +1,21 @@
+name: Check website links
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check links in site pages
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --root-dir "$GITHUB_WORKSPACE" --no-progress --max-retries 1 --timeout 20 './**/*.html'
+          fail: true
+          jobSummary: true
