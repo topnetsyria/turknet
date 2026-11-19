@@ -7,6 +7,3 @@
 .hero::before{content:"";position:absolute;inset:-6%;z-index:-1;background:linear-gradient(125deg,rgba(53,16,93,.75),rgba(104,35,162,.62)),url("unnamed.jpg") center 45%/cover no-repeat;animation:hero-image-drift 28s ease-in-out infinite alternate;will-change:transform}
 @keyframes hero-image-drift{from{transform:scale(1.02) translateX(-.4%)}to{transform:scale(1.09) translateX(.9%)}}
 @media(prefers-reduced-motion:reduce){.hero::before{animation:none;transform:scale(1.04);will-change:auto}}
-
-/* Mobile performance: avoid continuous hero background animation. */
-@media(max-width:560px){.hero::before{animation:none;will-change:auto;transform:scale(1.04)}}
