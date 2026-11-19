@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '23 7 * * 1'
 
 permissions:
   contents: read
@@ -82,3 +84,13 @@ jobs:
               sys.exit(1)
           print("Website integrity checks passed")
           PY
+      - name: Check public website HTTPS and key pages
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          set -euo pipefail
+          for page in / /tariffs.html /gigafiber.html /campaigns.html /switching.html /support.html /sitemap.xml; do
+            echo "Checking https://turknet.live${page}"
+            curl --fail --location --silent --show-error --retry 2 --retry-delay 3 --max-time 25 --output /dev/null "https://turknet.live${page}"
+          done
+          echo "Public website HTTPS checks passed"
