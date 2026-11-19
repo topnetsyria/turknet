@@ -1,0 +1,44 @@
+name: Optimize website photos once
+on:
+  push:
+    paths:
+      - '.github/workflows/optimize-site-images.yml'
+permissions:
+  contents: write
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Convert and resize photos
+        run: |
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from PIL import Image, ImageOps
+          from pathlib import Path
+          files = [('unnamed.jpg','unnamed.webp',960),('unnamed (1).jpg','unnamed-1.webp',900),('unnamed.png','unnamed-support.webp',420)]
+          for source,dest,max_width in files:
+              with Image.open(source) as im:
+                  im = ImageOps.exif_transpose(im)
+                  if im.width > max_width:
+                      im.thumbnail((max_width,1600),Image.Resampling.LANCZOS)
+                  im.save(dest,'WEBP',quality=82,method=6)
+                  print(source,Path(source).stat().st_size,'=>',dest,Path(dest).stat().st_size)
+          p=Path('index.html')
+          html=p.read_text(encoding='utf-8')
+          html=html.replace('src="unnamed.jpg"','src="unnamed.webp"')
+          html=html.replace('src="unnamed (1).jpg"','src="unnamed-1.webp"')
+          html=html.replace('src="unnamed.png"','src="unnamed-support.webp"')
+          p.write_text(html,encoding='utf-8')
+          PY
+      - name: Commit optimized assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html unnamed.webp unnamed-1.webp unnamed-support.webp
+          git diff --cached --quiet || (git commit -m "Optimize homepage photos as responsive WebP" && git push)
