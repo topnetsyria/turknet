@@ -1,0 +1,76 @@
+name: HTML quality report
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - '.github/workflows/html-quality.yml'
+  pull_request:
+    paths:
+      - '*.html'
+      - '.github/workflows/html-quality.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect HTML structure (report only)
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from collections import Counter
+          import os
+
+          class Audit(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.ids = []
+                  self.images_without_alt = 0
+                  self.empty_links = 0
+                  self.links = []
+                  self.in_a = False
+                  self.a_has_label = False
+              def handle_starttag(self, tag, attrs):
+                  a = dict(attrs)
+                  if a.get('id'):
+                      self.ids.append(a['id'])
+                  if tag == 'img' and 'alt' not in a:
+                      self.images_without_alt += 1
+                  if tag == 'a':
+                      self.in_a = True
+                      self.a_has_label = bool(a.get('aria-label') or a.get('title'))
+              def handle_data(self, data):
+                  if self.in_a and data.strip():
+                      self.a_has_label = True
+              def handle_endtag(self, tag):
+                  if tag == 'a' and self.in_a:
+                      if not self.a_has_label:
+                          self.empty_links += 1
+                      self.in_a = False
+
+          rows = []
+          for path in sorted(Path('.').glob('*.html')):
+              parser = Audit()
+              parser.feed(path.read_text(encoding='utf-8'))
+              duplicates = sum(n-1 for n in Counter(parser.ids).values() if n > 1)
+              rows.append((path.name, duplicates, parser.images_without_alt, parser.empty_links))
+          summary = ['## HTML quality report', '', 'Informational checks only; existing pages are not modified.', '',
+                     '| Page | Duplicate IDs | Images missing alt | Links without text label |',
+                     '|---|---:|---:|---:|']
+          for name, duplicates, alt, links in rows:
+              summary.append(f'| {name} | {duplicates} | {alt} | {links} |')
+          summary.append('')
+          summary.append('Note: heuristic checks are not a full HTML validator. Verify findings manually.')
+          report = '\n'.join(summary)
+          print(report)
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
+              f.write(report + '\n')
+          PY
