@@ -12,3 +12,7 @@
 .tile,.visual-card,.video-card{color:#251b2c}
 .tile p,.visual-card p{color:#49384f}
 .visual-card .btn,.tile .btn{color:#fff}
+
+/* Accessible button contrast: retain pink identity with darker shade */
+.btn:not(.light){background:#a91565;color:#fff!important}
+.btn:not(.light):hover,.btn:not(.light):focus-visible{background:#87104f}
