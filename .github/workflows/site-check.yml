@@ -1,0 +1,84 @@
+name: Website integrity checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+      - name: Validate local pages and assets
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlsplit, unquote
+          import xml.etree.ElementTree as ET
+          import sys
+
+          root = Path.cwd()
+          errors = []
+          checked = 0
+
+          class Links(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.links = []
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  for attr in (("href",) if tag == "a" else ("src",) if tag in ("img", "script", "iframe") else ()):
+                      if attrs.get(attr):
+                          self.links.append(attrs[attr])
+
+          pages = sorted(root.glob("*.html"))
+          if not pages:
+              errors.append("No HTML pages found")
+          for page in pages:
+              parser = Links()
+              parser.feed(page.read_text(encoding="utf-8"))
+              for link in parser.links:
+                  url = urlsplit(link.strip())
+                  if url.scheme or url.netloc or link.startswith(("#", "//", "data:", "mailto:", "tel:", "javascript:")):
+                      continue
+                  if not url.path:
+                      continue
+                  path = unquote(url.path).lstrip("/") if url.path.startswith("/") else unquote(url.path)
+                  target = root / path if url.path.startswith("/") else page.parent / path
+                  if target.is_dir():
+                      target = target / "index.html"
+                  checked += 1
+                  if not target.is_file():
+                      errors.append(f"{page.name}: missing local resource {link}")
+
+          sitemap = root / "sitemap.xml"
+          if sitemap.exists():
+              tree = ET.parse(sitemap)
+              for node in tree.iter():
+                  if node.tag.endswith("loc") and node.text:
+                      url = urlsplit(node.text.strip())
+                      if url.hostname not in ("turknet.live", "www.turknet.live"):
+                          continue
+                      target = root / (unquote(url.path).lstrip("/") or "index.html")
+                      if target.is_dir():
+                          target = target / "index.html"
+                      checked += 1
+                      if not target.is_file():
+                          errors.append(f"sitemap.xml: missing page {node.text}")
+          else:
+              errors.append("Missing sitemap.xml")
+
+          print(f"Checked {len(pages)} HTML pages and {checked} local references")
+          if errors:
+              print("\n".join(errors))
+              sys.exit(1)
+          print("Website integrity checks passed")
+          PY
