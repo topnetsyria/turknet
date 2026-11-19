@@ -42,7 +42,17 @@
   <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@mazaj.live" data-unique-id="mazaj.live" data-embed-type="creator" style="width:100%;max-width:720px;margin:1rem auto">
     <section><a href="https://www.tiktok.com/@mazaj.live" target="_blank" rel="noopener" dir="ltr">@mazaj.live</a></section>
   </blockquote>
-  <script async src="https://www.tiktok.com/embed.js"></script>
+  <button type="button" id="load-tiktok" style="display:block;margin:12px auto;padding:12px 20px;border:0;border-radius:12px;background:#6823a2;color:#fff;font:inherit;cursor:pointer">▶ عرض فيديوهات تيك توك</button>
+  <script>
+  document.getElementById('load-tiktok')?.addEventListener('click',function(){
+    this.disabled=true;this.textContent='جارٍ تحميل تيك توك…';
+    const script=document.createElement('script');
+    script.src='https://www.tiktok.com/embed.js';script.async=true;
+    script.onload=()=>this.remove();
+    script.onerror=()=>{this.disabled=false;this.textContent='إعادة محاولة تحميل تيك توك'};
+    document.body.appendChild(script);
+  });
+  </script>
 </div>
 <section id="whatsapp-tiktok" aria-label="حساب واتساب والكتالوج" class="wa-profile">
   <img class="wa-cover" src="assets/whatsapp/cover.webp" loading="lazy" alt="غلاف حساب turknet.live على واتساب">
