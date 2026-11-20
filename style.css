@@ -19,3 +19,20 @@
 
 /* Plain hero without background photography or motion */
 .hero::before{background-image:none!important;background-color:transparent!important;animation:none!important;transform:none!important;will-change:auto!important}
+
+/* Mobile usability refinements for interior pages. Preserve existing colors, layout and ads. */
+@media(max-width:640px){
+  .wrap{width:calc(100% - 24px)}
+  .nav{gap:10px}
+  .brand{font-size:1.35rem;overflow-wrap:anywhere}
+  .navlinks{display:flex;flex-wrap:wrap;gap:7px;width:100%;justify-content:center}
+  .navlinks a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 11px;line-height:1.4}
+  .hero-copy{padding-top:22px}
+  .hero-copy h1{font-size:clamp(1.7rem,7vw,2.4rem)}
+  .hero-copy .btn{display:block;max-width:380px;margin:10px auto;padding:12px 16px;min-height:46px}
+  .card{padding:16px;margin-bottom:14px;overflow-wrap:anywhere}
+  .table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .table-wrap table{min-width:500px}
+  .card img,.tile img{max-width:100%;height:auto}
+  .footnav a{display:inline-block;padding:5px 3px;min-height:40px}
+}
