@@ -25,8 +25,11 @@
 .btn:not(.light){background:#a91565;color:#fff!important}
 .btn:not(.light):hover,.btn:not(.light):focus-visible{background:#87104f}
 
-/* Plain hero without background photography or motion */
+/* Branded, lightweight background: reuse the existing WhatsApp/Facebook-inspired SVG asset. No extra JS, no motion. */
+.hero{background:linear-gradient(110deg,rgba(3,18,40,.92),rgba(4,53,83,.84),rgba(4,90,76,.86)),url("assets/whatsapp/cover-brand.svg") center center/cover no-repeat;background-color:#082b48}
 .hero::before{background-image:none!important;background-color:transparent!important;animation:none!important;transform:none!important;will-change:auto!important}
+.hero-copy h1,.hero-copy p,.hero .navlinks a,.hero .brand{ text-shadow:0 2px 9px rgba(0,0,0,.48)}
+@media(max-width:560px){.hero{background-position:center center;background-size:cover}}
 
 /* Mobile-first contact actions: no change to ads, trackers, or desktop navigation */
 @media(max-width:560px){.hero-copy .btn{display:block;width:100%;max-width:380px;margin:10px auto;padding:12px 16px;min-height:48px;text-align:center}.navlinks{width:100%;justify-content:center}.navlinks a{min-height:42px;display:inline-flex;align-items:center}.hero-copy{padding-bottom:8px}}
