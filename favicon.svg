@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#063a77"/><stop offset=".55" stop-color="#0279c3"/><stop offset="1" stop-color="#12b875"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="#071d3c"/><circle cx="32" cy="32" r="27" fill="url(#b)" stroke="#5ef8ba" stroke-width="1.5"/><path d="M16 25q16-15 32 0M22 31q10-9 20 0" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4"/><circle cx="32" cy="37" r="3.2" fill="#fff"/><text x="32" y="53" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#fff">TurkNet</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061a37"/><stop offset="1" stop-color="#08396b"/></linearGradient>
+<linearGradient id="neon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#04bfff"/><stop offset=".55" stop-color="#08e9db"/><stop offset="1" stop-color="#74ef10"/></linearGradient>
+<linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".55" stop-color="#c5efff"/><stop offset="1" stop-color="#398de8"/></linearGradient>
+</defs>
+<rect width="64" height="64" rx="13" fill="url(#bg)"/>
+<circle cx="32" cy="32" r="28" fill="none" stroke="url(#neon)" stroke-width="2.5"/>
+<path d="M24 19 Q32 11 40 19 M28 23 Q32 19 36 23" fill="none" stroke="url(#neon)" stroke-width="3.4" stroke-linecap="round"/>
+<circle cx="32" cy="27" r="1.9" fill="#fff"/>
+<path d="M17 32 H47 L44 39 H36 V54 H28 V39 H20 Z" fill="url(#metal)" stroke="#d9f9ff" stroke-width=".7" stroke-linejoin="round"/>
+<path d="M14 48 Q32 35 50 46" fill="none" stroke="#6df009" stroke-width="2.8" stroke-linecap="round"/>
+</svg>
