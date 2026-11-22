@@ -36,3 +36,23 @@
   .card img,.tile img{max-width:100%;height:auto}
   .footnav a{display:inline-block;padding:5px 3px;min-height:40px}
 }
+
+/* Desktop: borderless ad placements on interior pages only. Keep ad units and scripts intact. */
+@media (min-width: 641px) {
+  .subpage-ad-trial,
+  .tariffs-ad-test,
+  .subpage-ad-trial > .bottom-ad-item,
+  .tariffs-ad-test > .bottom-ad-item,
+  .subpage-ad-trial iframe,
+  .tariffs-ad-test iframe {
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+  .subpage-ad-trial > .bottom-ad-item,
+  .tariffs-ad-test > .bottom-ad-item {
+    padding: 0 !important;
+  }
+}
