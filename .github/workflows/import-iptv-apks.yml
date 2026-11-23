@@ -1,0 +1,68 @@
+name: Import IPTV APK release
+on:
+  push:
+    branches: [iptv-apk-import-20261123]
+permissions:
+  contents: write
+concurrency: iptv-apk-import-20261123
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RELEASE_TAG: iptv-apps-2026-11-23
+    steps:
+      - name: Fetch and validate authorized APK files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir apks
+          cat > manifest.txt <<'EOF'
+          starsat-plus 80384655
+          starsat-ultra 37925506
+          pablo-tv-red 80863888
+          g-iptv 83596654
+          biif-app 81050084
+          star-one 112336525
+          starsat-signed 14607489
+          sham-re2x 42824365
+          sh 23787247
+          sham-gold 84234136
+          blue-4k-pro 80417649
+          blue-4k-ultra 57000471
+          zain-4k 95546903
+          zain-tv-ultra 38429284
+          red-iptv-plus 20658706
+          delta-6 87476059
+          temu-vip-v6 89720820
+          tango-v6 86873947
+          xt-v3 47730178
+          ses-2023 28859021
+          look-4k 37397919
+          android33 82582604
+          myhd-max 115332560
+          myhd-lion 80706067
+          EOF
+          fetch_apk() {
+            local slug="$1" expected="$2" file="apks/$1.apk"
+            curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' \
+              --retry 2 --max-time 130 --user-agent 'Mozilla/5.0' --referer 'https://biif.uk/' \
+              "https://biif.uk/download/$slug" --output "$file"
+            test "$(stat -c %s "$file")" -eq "$expected"
+            unzip -tq "$file"
+            unzip -Z1 "$file" | grep -Fx 'AndroidManifest.xml' >/dev/null
+          }
+          export -f fetch_apk
+          xargs -a manifest.txt -n 2 -P 4 bash -c 'fetch_apk "$@"' _
+          (cd apks && sha256sum -- *.apk > SHA256SUMS.txt)
+      - name: Publish all verified files together
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create "$RELEASE_TAG" --draft --target cd1054567bb7f803106c7b512f511c962116e5bf \
+            --title 'تطبيقات IPTV لأندرويد' --notes 'ملفات APK لقسم تطبيقات IPTV على turknet.live.'
+          printf '%s\0' apks/* | xargs -0 -n 1 -P 4 gh release upload "$RELEASE_TAG"
+          gh release view "$RELEASE_TAG" --json assets --jq '.assets | length' | grep -x '25'
+          gh release edit "$RELEASE_TAG" --draft=false --latest=false
