@@ -16,6 +16,11 @@ jobs:
       - name: Check links in site pages
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --root-dir "$GITHUB_WORKSPACE" --no-progress --max-retries 1 --timeout 20 './**/*.html'
+          # TurkNet blocks GitHub-hosted checks, and this APK endpoint redirects to a binary.
+          # Both are checked separately against the live destinations.
+          args: --exclude '^https://www\.turk\.net/' --exclude '^https://biif\.uk/download/starsat-plus "$GITHUB_WORKSPACE" --no-progress --max-retries 1 --timeout 20 './**/*.html'
+          fail: true
+          jobSummary: true
+ --root-dir "$GITHUB_WORKSPACE" --no-progress --max-retries 1 --timeout 20 './**/*.html'
           fail: true
           jobSummary: true
