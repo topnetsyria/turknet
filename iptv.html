@@ -11,19 +11,23 @@
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; background: #f2f7fb; color: #163243; font: 1rem/1.7 Tahoma, Arial, sans-serif; }
-    .wrap { width: min(100% - 2rem, 64rem); margin-inline: auto; }
+    .wrap { width: min(100% - 1.5rem, 62rem); margin-inline: auto; }
     header { background: #08263b; padding: .85rem 0; }
     header a { display: inline-flex; align-items: center; gap: .55rem; color: white; font-weight: bold; }
-    .hero { background: linear-gradient(115deg, #063753, #075e75 60%, #0a775e); color: white; padding: 2.5rem 0; }
-    h1 { margin: 0 0 .4rem; font-size: clamp(1.9rem, 5vw, 3rem); line-height: 1.3; }
+    .hero { background: linear-gradient(115deg, #063753, #075e75 60%, #0a775e); color: white; padding: 1.55rem 0; }
+    h1 { margin: 0 0 .4rem; font-size: clamp(1.45rem, 4.2vw, 2.2rem); line-height: 1.3; }
     .hero p { margin: 0; }
-    .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .85rem; padding: 0; margin: 1.4rem 0 2.5rem; list-style: none; }
-    .apps li { background: white; border: 1px solid #dfeaf1; border-radius: 1rem; padding: 1rem; display: flex; flex-direction: column; align-items: flex-start; }
-    .app-image { align-self: center; display: block; width: 7rem; height: 7rem; margin-bottom: .85rem; border-radius: .75rem; object-fit: contain; }
-    .apps h2 { margin: 0; font-size: 1.15rem; color: #083f5e; }
-    .apps p { margin: .2rem 0 .8rem; color: #435d6e; }
-    .download { display: inline-flex; align-items: center; min-height: 44px; padding: .5rem .95rem; background: #07664f; color: white; border-radius: .65rem; text-decoration: none; font-weight: bold; margin-top: auto; }
+    .apps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; padding: 0; margin: 1rem 0 2rem; list-style: none; }
+    .apps li { min-width:0; background: white; border: 1px solid #dfeaf1; border-radius: .85rem; padding: .8rem; display: flex; flex-direction: column; align-items: center; text-align:center; box-shadow:0 3px 12px #123c4c0a; }
+    .app-image { display: block; width: 76px; height: 76px; margin-bottom: .5rem; border-radius: .65rem; object-fit: contain; }
+    .apps h2 { margin: 0; font-size: 1rem; line-height:1.45; color: #083f5e; overflow-wrap:anywhere; }
+    .apps p { margin: .2rem 0 .65rem; color: #435d6e; font-size:.86rem; }
+    .download { display: inline-flex; align-items: center; justify-content:center; width:100%; min-height: 42px; padding: .4rem .65rem; background: #07664f; color: white; border-radius: .6rem; text-decoration: none; font-weight: bold; margin-top: auto; font-size:.9rem; }
     .download:hover { background: #07523f; }
+    @media(min-width:650px){.apps{grid-template-columns:repeat(3,minmax(0,1fr))}.app-image{width:88px;height:88px}}
+    @media(min-width:900px){.apps{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    @media(max-width:360px){.wrap{width:min(100% - 1rem,62rem)}.apps{gap:.5rem}.apps li{padding:.55rem}.app-image{width:64px;height:64px}.apps h2{font-size:.88rem}.download{font-size:.82rem;padding:.35rem}}
+    @media(prefers-reduced-motion:no-preference){.apps li{transition:box-shadow .18s,transform .18s}.apps li:hover{transform:translateY(-2px);box-shadow:0 8px 18px #123c4c13}}
     a:focus-visible { outline: 3px solid #d48e12; outline-offset: 3px; }
   </style>
 </head>
