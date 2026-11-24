@@ -1,0 +1,19 @@
+/* Platform glyphs: Simple Icons, https://simpleicons.org/ */
+.platform-icon {
+  display: inline-block;
+  width: 1.3em;
+  height: 1.3em;
+  flex: none;
+  vertical-align: -0.26em;
+  margin-inline-end: 0.38em;
+}
+
+.social-brand-links .platform-icon {
+  width: 26px;
+  height: 26px;
+  margin-inline-end: 0;
+}
+
+.download-btn .platform-icon {
+  margin-inline-end: 0;
+}
