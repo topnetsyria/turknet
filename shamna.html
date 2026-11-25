@@ -14,12 +14,42 @@
 *{box-sizing:border-box}body{margin:0;background:#f2f7fb;color:#163243;font:1rem/1.65 Tahoma,Arial,sans-serif}.wrap{width:min(100% - 18px,930px);margin-inline:auto}header{background:#08263b;padding:13px 0}header a{color:#fff;text-decoration:none;font-weight:bold}.hero{padding:24px 10px;background:linear-gradient(115deg,#063753,#075e75 60%,#0a775e);color:white;text-align:center}.hero h1{font-size:clamp(1.5rem,5vw,2.3rem);margin:0 0 8px}.hero p{margin:0}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;list-style:none;padding:0;margin:22px 0}.cards li{min-width:0;background:#fff;border:1px solid #dce8ef;border-radius:13px;overflow:hidden;display:flex;flex-direction:column;text-align:center;padding-bottom:9px}.art{background:linear-gradient(130deg,#e2f5fd,#ccecf7);height:clamp(82px,23vw,138px);padding:0 4px;display:grid;grid-template-rows:minmax(0,1fr);place-items:center}.cards li:nth-child(2) .art{background:linear-gradient(130deg,#f2eafa,#e4d8f5)}.cards li:nth-child(3) .art{background:linear-gradient(130deg,#e5f8ec,#caeddc)}.art img{display:block;width:100%;height:100%;min-height:0;min-width:0;object-fit:fill}.cards h2{font-size:clamp(.81rem,2.8vw,1.05rem);line-height:1.4;margin:10px 5px;min-height:2.8em;display:grid;place-items:center}.cards p{font-size:.8rem;margin:0 6px 12px;color:#546875;flex:1}.download{display:block;text-decoration:none;font-weight:700;background:#07664f;color:#fff;border-radius:9px;padding:10px 4px;margin:0 8px;font-size:.9rem}.note{background:white;border:1px solid #dce8ef;border-radius:12px;padding:16px;margin:12px 0 28px;font-size:.88rem;color:#465c68}.back{display:inline-block;text-decoration:none;color:#075d80;margin:0 0 18px;font-weight:bold}a:focus-visible{outline:3px solid #ecb649;outline-offset:3px}@media(max-width:400px){.cards{gap:6px}.cards h2{font-size:.76rem;margin:8px 3px}.cards p{font-size:.69rem;margin:0 3px 8px}.download{font-size:.75rem;margin:0 5px;padding:9px 2px}}
 
 .shamna-bottom-ad{display:flex;justify-content:center;margin:0 auto 24px}.shamna-bottom-ad iframe{display:block;max-width:100%;border:0}
+
+.store-section{margin:22px 0}
+.store-section>h2{font-size:1.16rem;margin:0 0 10px}
+.store-cards{grid-template-columns:repeat(2,minmax(0,1fr));margin:0;gap:9px}
+.store-cards .art img{width:clamp(59px,19vw,108px);height:auto;aspect-ratio:1;object-fit:contain;border-radius:18%}
+.store-cards h3{font-size:clamp(.84rem,3vw,1.05rem);line-height:1.4;margin:10px 5px;overflow-wrap:anywhere}
+.store-cards .download{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
+.store-cards .download:hover{background:#075542}
+.store-cards .download img{flex:none}
 </style>
 </head>
 <body>
 <header><div class="wrap"><a href="/iptv.html">← العودة إلى تطبيقات IPTV</a></div></header>
 <section class="hero"><div class="wrap"><h1>تطبيقات شامنا</h1><p>اختر الإصدار المناسب لجهازك من التطبيقات المتاحة</p></div></section>
 <main class="wrap">
+<section class="store-section" aria-labelledby="shamna-play-title">
+  <h2 id="shamna-play-title">تطبيقات على Google Play</h2>
+  <ul class="cards store-cards">
+    <li>
+      <div class="art"><img src="/assets/shamna/jmf-player.webp" alt="" width="108" height="108" decoding="async"></div>
+      <h3><bdi>JMF Player</bdi></h3>
+      <p>مشغّل وسائط لأندرويد</p>
+      <a class="download" href="https://play.google.com/store/apps/details?id=com.jmfxtech.jmfplayerapp" aria-label="عرض JMF Player على Google Play">
+        <img src="/assets/platforms/googleplay.png" alt="" width="22" height="22" decoding="async"><bdi>Google Play</bdi>
+      </a>
+    </li>
+    <li>
+      <div class="art"><img src="/assets/shamna/shamna-ultrapro-player.webp" alt="" width="108" height="108" decoding="async"></div>
+      <h3><bdi>Shamna UltraPro Player</bdi></h3>
+      <p>مشغّل وسائط لأندرويد</p>
+      <a class="download" href="https://play.google.com/store/apps/details?id=com.shamnaplayer.ultrapro" aria-label="عرض Shamna UltraPro Player على Google Play">
+        <img src="/assets/platforms/googleplay.png" alt="" width="22" height="22" decoding="async"><bdi>Google Play</bdi>
+      </a>
+    </li>
+  </ul>
+</section>
 <ul class="cards" aria-label="إصدارات تطبيقات شامنا">
 <li><div class="art"><img src="/assets/shamna/shamna-2027.webp" alt="" width="112" height="112" decoding="async"></div><h2>شامنا 2027</h2><p>نسخة أندرويد</p><a class="download" href="https://a-o.app/SHAMNA-APP-1.0.3.apk" aria-label="تحميل شامنا 2027 بصيغة APK">تحميل APK</a></li>
 <li><div class="art"><img src="/assets/shamna/shamna-2027-tv.webp" alt="" width="112" height="112" decoding="async"></div><h2>شامنا 2027 للتلفزيون</h2><p>نسخة التلفزيون</p><a class="download" href="https://a-o.app/SHAMNA-TV-1.0.3.apk" aria-label="تحميل شامنا 2027 للتلفزيون بصيغة APK">تحميل APK</a></li>
