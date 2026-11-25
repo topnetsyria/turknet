@@ -16,9 +16,9 @@ try{const last=sessionStorage.getItem('tn-current-page');if(last&&last!==locatio
 const mount=()=>{
  if(document.getElementById('tn-site-quicknav'))return;
  const nav=document.createElement('nav');nav.id='tn-site-quicknav';nav.setAttribute('aria-label','التنقل السريع في الموقع');
- const items=[['⌂','الرئيسية','/'],['≡','الأسعار','/tariffs.html'],['✦','الخدمات','/support.html'],['↩','رجوع','#tn-back'],['☰','المزيد','/about.html']];
+ const items=[['⌂','الرئيسية','/'],['≡','الأسعار','/tariffs.html'],['✦','الخدمات','/support.html'],['☰','المزيد','/about.html'],['↩','رجوع','#tn-back']];
  const current=location.pathname.replace(/\/$/,'')||'/';
- for(const [symbol,label,href] of items){const a=document.createElement('a');a.href=href;if(href==='#tn-back'){a.addEventListener('click',event=>{event.preventDefault();const previous=sessionStorage.getItem('tn-previous-page');if(previous&&previous!==location.pathname){location.assign(previous)}else{location.assign('/')}})}a.setAttribute('aria-label',label);if(current===href)a.setAttribute('aria-current','page');const ico=document.createElement('span');ico.className='tn-nav-icon';ico.setAttribute('aria-hidden','true');ico.textContent=symbol;const t=document.createElement('span');t.textContent=label;a.append(ico,t);nav.appendChild(a)}
+ for(const [symbol,label,href] of items){const a=document.createElement('a');a.href=href;if(href==='#tn-back'){a.addEventListener('click',event=>{event.preventDefault();let sameSite=false;try{sameSite=Boolean(document.referrer&&new URL(document.referrer).origin===location.origin)}catch(e){}if(sameSite&&history.length>1){history.back();return}let previous=null;try{previous=sessionStorage.getItem('tn-previous-page')}catch(e){}if(previous&&previous!==location.pathname&&previous.startsWith('/')&&!previous.startsWith('//')){location.assign(previous)}else if(location.pathname!=='/'){location.assign('/')}})}a.setAttribute('aria-label',label);if(current===href)a.setAttribute('aria-current','page');const ico=document.createElement('span');ico.className='tn-nav-icon';ico.setAttribute('aria-hidden','true');ico.textContent=symbol;const t=document.createElement('span');t.textContent=label;a.append(ico,t);nav.appendChild(a)}
  document.body.appendChild(nav);
  document.body.style.paddingBottom='calc(94px + env(safe-area-inset-bottom,0px))';
 };
