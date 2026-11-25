@@ -1,7 +1,7 @@
 /* TurkNet Live: browser-only quick navigation. Android WebView is excluded by default. */
 (()=>{'use strict';
 const ua=navigator.userAgent||'';
-if(/Android/i.test(ua)&&/;\\s*wv[);]/i.test(ua))return;
+if(/Android/i.test(ua)&&/;\s*wv[);]/i.test(ua))return;
 if(document.getElementById('tn-site-quicknav'))return;
 const style=document.createElement('style');
 style.textContent=`
@@ -16,7 +16,7 @@ const mount=()=>{
  if(document.getElementById('tn-site-quicknav'))return;
  const nav=document.createElement('nav');nav.id='tn-site-quicknav';nav.setAttribute('aria-label','التنقل السريع في الموقع');
  const items=[['⌂','الرئيسية','/'],['≡','الأسعار','/tariffs.html'],['✦','الخدمات','/support.html'],['↓','التنزيلات','/iptv.html'],['☰','المزيد','/about.html']];
- const current=location.pathname.replace(/\\/$/,'')||'/';
+ const current=location.pathname.replace(/\/$/,'')||'/';
  for(const [symbol,label,href] of items){const a=document.createElement('a');a.href=href;a.setAttribute('aria-label',label);if(current===href)a.setAttribute('aria-current','page');const ico=document.createElement('span');ico.className='tn-nav-icon';ico.setAttribute('aria-hidden','true');ico.textContent=symbol;const t=document.createElement('span');t.textContent=label;a.append(ico,t);nav.appendChild(a)}
  document.body.appendChild(nav);
  document.body.style.paddingBottom='calc(94px + env(safe-area-inset-bottom,0px))';
