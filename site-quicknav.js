@@ -12,12 +12,13 @@ style.textContent=`
 @media(max-width:390px){#tn-site-quicknav{padding:6px 5px;gap:1px}#tn-site-quicknav a{min-width:52px;padding:5px}}
 `;
 document.head.appendChild(style);
+try{const last=sessionStorage.getItem('tn-current-page');if(last&&last!==location.pathname)sessionStorage.setItem('tn-previous-page',last);sessionStorage.setItem('tn-current-page',location.pathname)}catch(e){}
 const mount=()=>{
  if(document.getElementById('tn-site-quicknav'))return;
  const nav=document.createElement('nav');nav.id='tn-site-quicknav';nav.setAttribute('aria-label','التنقل السريع في الموقع');
- const items=[['⌂','الرئيسية','/'],['≡','الأسعار','/tariffs.html'],['✦','الخدمات','/support.html'],['↓','التنزيلات','/iptv.html'],['☰','المزيد','/about.html']];
+ const items=[['⌂','الرئيسية','/'],['≡','الأسعار','/tariffs.html'],['✦','الخدمات','/support.html'],['↩','رجوع','#tn-back'],['☰','المزيد','/about.html']];
  const current=location.pathname.replace(/\/$/,'')||'/';
- for(const [symbol,label,href] of items){const a=document.createElement('a');a.href=href;a.setAttribute('aria-label',label);if(current===href)a.setAttribute('aria-current','page');const ico=document.createElement('span');ico.className='tn-nav-icon';ico.setAttribute('aria-hidden','true');ico.textContent=symbol;const t=document.createElement('span');t.textContent=label;a.append(ico,t);nav.appendChild(a)}
+ for(const [symbol,label,href] of items){const a=document.createElement('a');a.href=href;if(href==='#tn-back'){a.addEventListener('click',event=>{event.preventDefault();const previous=sessionStorage.getItem('tn-previous-page');if(previous&&previous!==location.pathname){location.assign(previous)}else{location.assign('/')}})}a.setAttribute('aria-label',label);if(current===href)a.setAttribute('aria-current','page');const ico=document.createElement('span');ico.className='tn-nav-icon';ico.setAttribute('aria-hidden','true');ico.textContent=symbol;const t=document.createElement('span');t.textContent=label;a.append(ico,t);nav.appendChild(a)}
  document.body.appendChild(nav);
  document.body.style.paddingBottom='calc(94px + env(safe-area-inset-bottom,0px))';
 };
