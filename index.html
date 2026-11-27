@@ -55,6 +55,19 @@
 .wa-profile .wa-chat{display:inline-block;margin:12px 0;padding:10px 25px;background:#007c66;color:white;border-radius:999px;text-decoration:none;font-weight:bold}
 .wa-catalog{border-top:1px solid #dae4de;margin-top:14px;padding-top:14px}.wa-catalog header{position:static;display:flex;justify-content:space-between;align-items:center;background:white;color:#153b30;padding:0;margin-bottom:12px}
 .wa-catalog header a{color:#006b55}.wa-products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.wa-products img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px}
+/* Compact WhatsApp Business-style profile; scoped to this section only. */
+#whatsapp-tiktok.wa-profile{max-width:540px;padding:0 0 18px;overflow:hidden;text-align:center;border:1px solid #dce9e3;box-shadow:0 8px 28px #082b4814}
+#whatsapp-tiktok .wa-cover{width:100%;aspect-ratio:1000/470;object-fit:cover;border-radius:0}
+#whatsapp-tiktok .wa-avatar{width:94px;height:94px;aspect-ratio:1;object-fit:contain;margin:-47px auto 8px;border:4px solid #fff;z-index:1;box-shadow:0 2px 9px #0002}
+#whatsapp-tiktok h3{margin:5px 0;font-size:1.3rem}
+#whatsapp-tiktok .wa-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;padding:4px 12px}
+#whatsapp-tiktok .wa-actions a{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:9px 14px;border-radius:12px;text-decoration:none;font-weight:700;background:#087c5b;color:#fff}
+#whatsapp-tiktok .wa-actions a.wa-catalog-btn{background:#e8f5ee;color:#075d43;border:1px solid #b6ddc8}
+#whatsapp-tiktok .wa-catalog{margin:10px 14px 0;padding-top:10px}
+#whatsapp-tiktok .wa-catalog header{margin-bottom:8px}
+#whatsapp-tiktok .wa-products{gap:6px}
+#whatsapp-tiktok .wa-products img{aspect-ratio:1;object-fit:cover}
+@media(max-width:400px){#whatsapp-tiktok .wa-actions a{flex:1 1 100%}#whatsapp-tiktok .wa-avatar{width:80px;height:80px;margin-top:-40px}}
 </style><style>.illustrated-services{position:relative;isolation:isolate;overflow:hidden}.illustrated-services::before{content:"";position:absolute;inset:0;background:url("network-services.svg") center/cover no-repeat;opacity:.085;pointer-events:none;z-index:-1}</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"TurkNet بالعربي","url":"https://turknet.live/","description":"موقع إرشادي عربي مستقل لخدمات الإنترنت في تركيا، غير تابع رسمياً لشركة TurkNet.","sameAs":["https://www.facebook.com/459134167279170","https://www.youtube.com/@turknetarabic"]}</script><style id="hero-feature-banner-styles">.hero-feature-banner{width:min(100%,980px);margin:22px auto 0;position:relative;z-index:1}.hero-feature-banner picture,.hero-feature-banner img{display:block;width:100%}.hero-feature-banner img{height:auto;aspect-ratio:16/9;object-fit:contain;border-radius:16px;box-shadow:0 8px 26px rgba(0,0,0,.20)}@media(max-width:640px){.hero-feature-banner{margin:14px auto 0}.hero-feature-banner img{border-radius:10px}.hero-copy{padding-top:20px}}</style><style id="app-promo-styles">
 .app-promo{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:22px;position:relative;overflow:hidden;background:linear-gradient(115deg,#ffffff,#e6f7f3);border:1px solid #b7dfd3;border-right:5px solid #0a8765;box-shadow:0 10px 27px #0b49301b}
 .app-promo .app-promo-tag{display:inline-flex;align-items:center;gap:7px;background:#d8f2e7;color:#07543b;padding:2px 11px;border-radius:999px;font-size:.82rem;font-weight:800}
@@ -114,8 +127,11 @@
   <p dir="ltr">+90 552 431 95 44</p>
   <p class="wa-cats"><span>موفّر خدمة إنترنت</span> <span>تسوّق وبيع بالتجزئة</span></p>
   <p>Türkiye</p><p>بحسب المواعيد فقط</p>
-  <a class="wa-chat" data-whatsapp-placement="whatsapp_profile" href="https://wa.me/905524319544" rel="noopener noreferrer"><img class="platform-icon" src="/assets/platforms/whatsapp.png" width="24" height="24" alt="" decoding="async">مراسلة على واتساب</a>
-  <div class="wa-catalog"><header><strong>الكتالوج</strong><a data-whatsapp-placement="catalog" href="https://wa.me/905524319544" rel="noopener noreferrer"><img class="platform-icon" src="/assets/platforms/whatsapp.png" width="24" height="24" alt="" decoding="async">عرض على واتساب</a></header>
+  <div class="wa-actions" aria-label="روابط حساب واتساب الخارجية">
+    <a data-whatsapp-placement="whatsapp_profile" href="https://wa.me/905524319544" target="_blank" rel="noopener noreferrer"><img class="platform-icon" src="/assets/platforms/whatsapp.png" width="24" height="24" alt="" decoding="async">مراسلة على واتساب ↗</a>
+    <a class="wa-catalog-btn" data-whatsapp-placement="catalog" href="https://wa.me/905524319544" target="_blank" rel="noopener noreferrer" aria-label="فتح حساب واتساب لاستعراض الكتالوج"><img class="platform-icon" src="/assets/platforms/whatsapp.png" width="24" height="24" alt="" decoding="async">كتالوج واتساب ↗</a>
+  </div>
+  <div class="wa-catalog"><header><strong>منتجات الكتالوج</strong></header>
     <div class="wa-products"><span><img src="assets/whatsapp/item0.webp" alt="تورك نت TurkNet" loading="lazy"></span>
 <span><img src="assets/whatsapp/item1.webp" alt="اشتراك قنوات تلفزيونية بسعر مميز شامنا shamina" loading="lazy"></span>
 <span><img src="assets/whatsapp/item2.webp" alt="التوقيع الإلكتروني وبصمة الوجه" loading="lazy"></span>
