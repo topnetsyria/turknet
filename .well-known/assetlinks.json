@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "turknet.live",
+      "sha256_cert_fingerprints": [
+        "B2:8D:70:95:F5:2A:16:67:28:DC:BB:71:4E:F3:23:82:22:9C:28:AE:16:5F:CB:B6:76:07:79:CB:5B:82:13:0E"
+      ]
+    }
+  }
+]
