@@ -1,0 +1,25 @@
+name: Build TurkNet Live Windows
+on:
+  workflow_dispatch:
+  push:
+    branches: [windows-desktop]
+    paths:
+      - 'windows/**'
+      - '.github/workflows/windows-desktop.yml'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Publish Windows x64
+        run: dotnet publish windows/TurkNetLive.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -o publish
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TurkNetLive-Windows-x64
+          path: publish/
+          if-no-files-found: error
