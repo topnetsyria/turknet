@@ -11,15 +11,29 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, x86]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-      - name: Publish Windows x64
-        run: dotnet publish windows/TurkNetLive.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -o publish
+      - name: Publish lightweight Windows build
+        run: dotnet publish windows/TurkNetLive.csproj -c Release -r win-${{ matrix.arch }} --self-contained false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -o publish
+      - name: Add runtime requirements
+        shell: pwsh
+        run: |
+          @'
+          TurkNet Live - lightweight portable build
+          Extract the entire ZIP before running TurkNetLive.exe.
+          Requires Windows supported by .NET 8, .NET 8 Desktop Runtime matching the build architecture, and Microsoft Edge WebView2 Runtime.
+          .NET: https://dotnet.microsoft.com/download/dotnet/8.0
+          WebView2: https://developer.microsoft.com/microsoft-edge/webview2/
+          '@ | Set-Content publish/README.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: TurkNetLive-Windows-x64
+          name: TurkNetLive-Light-${{ matrix.arch }}
           path: publish/
           if-no-files-found: error
